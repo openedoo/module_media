@@ -9,3 +9,6 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -H 'content-type: image/jpeg' \
 ```
+
+
+Content-type header request must match with the file mime-type, [list of mime-type](https://www.iana.org/assignments/media-types/media-types.xhtml)
