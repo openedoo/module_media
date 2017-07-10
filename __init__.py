@@ -1,25 +1,30 @@
 import os
-from flask import jsonify
+from flask import jsonify, send_from_directory, url_for
 from werkzeug.utils import secure_filename
 from openedoo.core.libs import Blueprint, request
 from .utils import random_char
 
 UPLOAD_FOLDER = '/modules/module_media/uploads/'
 
-module_media = Blueprint('module_media', __name__)
+module_media = Blueprint('module_media', __name__,
+                         static_folder='uploads', static_url_path='/static')
 
 
 def add_extension(mime_type):
     return '.' + mime_type.split('/')[1]
 
 
-def save_file(request):
+def get_media_path(name):
     cwd = os.getcwd()
+    return cwd+UPLOAD_FOLDER+name
+
+
+def save_file(request):
     mime_type = request.content_type
     rand_name = random_char(length=33)
     file_extension = add_extension(mime_type)
     file_name = secure_filename(rand_name+file_extension)
-    file_path = cwd+UPLOAD_FOLDER+file_name
+    file_path = get_media_path(file_name)
 
     with open(file_path, 'w+b') as f:
         f.write(request.get_data())
@@ -37,7 +42,7 @@ def save_file(request):
 def index():
     saved_file = save_file(request)
     host_name = request.host
-    file_link = '{host}/media/attachments/{f_name}'
+    file_link = '{host}/media/static/{f_name}'
     file_link = file_link.format(host=host_name, f_name=saved_file['name'])
     resp = {
         'type': saved_file['type'],
