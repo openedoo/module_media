@@ -1,5 +1,5 @@
 import os
-from flask import jsonify, send_from_directory, url_for
+from flask import jsonify
 from werkzeug.utils import secure_filename
 from openedoo.core.libs import Blueprint, request
 from .utils import random_char
