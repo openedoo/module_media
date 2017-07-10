@@ -1,7 +1,7 @@
 Openedoo module to upload media, like discussion attachments. curresnt status is WIP.
 
 
-###Upload file
+### Upload file ###
 curl example:
 ```
 curl -X POST \
@@ -15,7 +15,7 @@ curl -X POST \
 Content-type header request must match with the file mime-type, [list of mime-type](https://www.iana.org/assignments/media-types/media-types.xhtml)
 
 
-###Download file
+### Download file ###
 ```
 [GET] http://<hostname>/media/static/<file_name>
 ```
